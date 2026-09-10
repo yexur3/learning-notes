@@ -1,0 +1,15 @@
+<h1>Prevod medzi číselnými sústavami</h1>
+
+<div>
+  <label>
+    dec:
+    <input type = "number" [(ngModel)]="decimalValue" (ngModelChange)="updateBitsFromDecimal()" />
+  </label>
+</div>
+<div>
+  <label *ngFor="let bit of bits; let i = index">
+    <input type = "checkbox" [(ngModel)] = "bits[i]" (change)="updateDecimalFromBits()" )/>
+    {{ 7 - i }}
+  </label>
+</div>
+

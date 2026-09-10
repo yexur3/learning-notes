@@ -1,0 +1,44 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct employee{
+    int id;
+    char name[50];
+    float salary;
+};
+
+
+int main()
+{
+    struct employee employers[5];
+
+    for(int i = 0; i < 5; i++){
+        printf("Enter employee %d ID: ", i + 1);
+        scanf("%d", &employers[i].id);
+        printf("Enter employee %d name: ", i + 1);
+        scanf("%s", employers[i].name);
+        printf("Enter employee %d salary: ", i + 1);
+        scanf("%f", &employers[i].salary);
+        printf("\n");
+    }
+
+    int find;
+    printf("Enter the ID of the employee to search: ");
+    scanf("%d", &find);
+
+    int found = 0;
+
+    for(int i = 0; i < 5; i++){
+        if(employers[i].id == find){
+            printf("Employee found: Name = %s, Salary = %.2f", employers[i].name, employers[i].salary);
+            found = 1;
+            break;
+        }
+    }
+
+    if (!found){
+        printf("Employee with ID %d not found.", find);
+    }
+
+    return 0;
+}
