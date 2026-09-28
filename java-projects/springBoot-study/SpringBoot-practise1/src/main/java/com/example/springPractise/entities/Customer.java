@@ -17,6 +17,6 @@ public class Customer {
     private String name;
 
     @OneToMany(mappedBy = "customer")
-    private List<Order> orders;
+    private List<CustomerOrder> orders;
 
 }
