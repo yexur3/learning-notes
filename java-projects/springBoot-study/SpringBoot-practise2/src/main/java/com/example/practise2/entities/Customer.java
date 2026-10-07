@@ -7,6 +7,7 @@ import lombok.Data;
 
 @Entity
 @Data
+@Table(name = "customers")
 public class Customer {
 
     @Id
@@ -15,7 +16,7 @@ public class Customer {
     private long id;
 
     @NotBlank
-    @Column(nullable = false)
+    @Column(nullable = false, length = 20)
     private String name;
 
 }

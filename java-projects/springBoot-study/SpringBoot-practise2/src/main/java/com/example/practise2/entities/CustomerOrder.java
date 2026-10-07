@@ -7,6 +7,7 @@ import lombok.Data;
 
 @Entity
 @Data
+@Table(name = "customer_orders")
 public class CustomerOrder {
 
     @Id
@@ -19,7 +20,7 @@ public class CustomerOrder {
     @ManyToOne
     private Customer customer;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 200)
     @NotBlank
     private String description;
 

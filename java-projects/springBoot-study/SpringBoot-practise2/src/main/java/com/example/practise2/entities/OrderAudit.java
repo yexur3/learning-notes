@@ -6,6 +6,7 @@ import lombok.Data;
 
 @Entity
 @Data
+@Table(name = "order_audits")
 public class OrderAudit {
 
     @Id
@@ -13,7 +14,7 @@ public class OrderAudit {
     private long id;
 
     @NotBlank
-    @Column(nullable = false)
+    @Column(nullable = false, length = 200)
     private String message;
 
 }

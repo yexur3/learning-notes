@@ -1,6 +1,7 @@
 package com.example.practise2.services;
 
 import com.example.practise2.dtos.CreateOrderRequest;
+import com.example.practise2.dtos.CustomerOrderResponse;
 import com.example.practise2.entities.Customer;
 import com.example.practise2.entities.CustomerOrder;
 import com.example.practise2.entities.OrderAudit;
@@ -8,8 +9,13 @@ import com.example.practise2.exceptions.CustomerNotFoundException;
 import com.example.practise2.repository.CustomerOrderRepository;
 import com.example.practise2.repository.CustomerRepository;
 import com.example.practise2.repository.OrderAuditRepository;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import org.slf4j.Logger;
+
+import java.util.List;
 
 @Service
 public class OrderService {
@@ -17,6 +23,7 @@ public class OrderService {
     private final CustomerOrderRepository customerOrderRepository;
     private final CustomerRepository customerRepository;
     private final OrderAuditRepository orderAuditRepository;
+    private static final Logger log = LoggerFactory.getLogger(OrderService.class);
 
     public OrderService(CustomerOrderRepository customerOrderRepository, CustomerRepository customerRepository,
                         OrderAuditRepository orderAuditRepository){
@@ -26,7 +33,7 @@ public class OrderService {
     }
 
     @Transactional
-    public void createOrder(CreateOrderRequest createOrderRequest){
+    public CustomerOrderResponse createOrder(CreateOrderRequest createOrderRequest){
         Customer customer = customerRepository.findById(createOrderRequest.getCustomerId())
                 .orElseThrow(() -> new CustomerNotFoundException(createOrderRequest.getCustomerId()));
 
@@ -40,6 +47,28 @@ public class OrderService {
         orderAudit.setMessage("order created");
 
         orderAuditRepository.save(orderAudit);
+
+        log.info("Order created with id {}", customerOrder.getId());
+
+        CustomerOrderResponse response = new CustomerOrderResponse();
+
+        response.setId(customerOrder.getId());
+        response.setDescription(customerOrder.getDescription());
+        response.setCustomerName(customer.getName());
+
+        return response;
+    }
+
+    public List<CustomerOrderResponse> findAllOrders() {
+        List<CustomerOrder> list = customerOrderRepository.findAllWithCustomer();
+
+        return list.stream().map(order -> {
+            CustomerOrderResponse response = new CustomerOrderResponse();
+            response.setId(order.getId());
+            response.setCustomerName(order.getCustomer().getName());
+            response.setDescription(order.getDescription());
+            return response;
+        }).toList();
     }
 
 }
