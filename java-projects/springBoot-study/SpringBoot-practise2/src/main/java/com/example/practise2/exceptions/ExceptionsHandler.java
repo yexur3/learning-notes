@@ -17,6 +17,12 @@ public class ExceptionsHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
 
+    @ExceptionHandler(UsernameIsExistingException.class)
+    public ResponseEntity<String> handleUsernameExisting(UsernameIsExistingException ex){
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+    }
+
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleNotValid(MethodArgumentNotValidException ex){
         Map<String, String> errors = new HashMap<>();
