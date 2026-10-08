@@ -6,6 +6,7 @@ import com.example.practise2.services.OrderService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +31,7 @@ public class OrderController {
             @ApiResponse(responseCode = "404", description = "User with this id not found")
     })
     @PostMapping("/create")
+    @SecurityRequirement(name = "bearerAuth")
     public ResponseEntity<CustomerOrderResponse> createOrder(@RequestBody @Valid CreateOrderRequest createOrderRequest){
         CustomerOrderResponse response = orderService.createOrder(createOrderRequest);
 
@@ -37,6 +39,7 @@ public class OrderController {
     }
 
     @GetMapping
+    @SecurityRequirement(name = "bearerAuth")
     public List<CustomerOrderResponse> findAllOrders() {
         return orderService.findAllOrders();
     }
