@@ -3,12 +3,16 @@ package com.example.practise2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
+import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
+import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
 
 import javax.crypto.SecretKey;
@@ -19,7 +23,7 @@ import java.util.Base64;
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http)  throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthenticationConverter jwtAuthenticationConverter)  throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session ->
@@ -31,19 +35,47 @@ public class SecurityConfig {
                         "/swagger-ui.html",
                         "/v3/api-docs/**"
                 ).permitAll()
-                .anyRequest().authenticated()).oauth2ResourceServer(oath -> oath.jwt(Customizer.withDefaults()));
+                                .requestMatchers(HttpMethod.GET, "/orders").hasRole("USER")
+                                .requestMatchers(HttpMethod.POST, "/orders/create").hasRole("ADMIN")
+                .anyRequest().authenticated()
+                ).oauth2ResourceServer(oath -> oath.jwt(
+                        jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter)
+                ));
 
         return http.build();
     }
 
     @Bean
-    public JwtDecoder jwtDecoder(@Value("${security.jwt.secret}") String secret){
+    public SecretKey jwtSecretKey(@Value("${security.jwt.secret}") String secret){
         byte[] keyBytes = Base64.getDecoder().decode(secret);
-        SecretKey key = new SecretKeySpec(keyBytes, "HmacSHA256");
+        return new SecretKeySpec(keyBytes, "HmacSHA256");
+    }
 
-        return NimbusJwtDecoder.withSecretKey(key)
+    @Bean
+    public JwtDecoder jwtDecoder(SecretKey jwtSecretKey){
+        return NimbusJwtDecoder.withSecretKey(jwtSecretKey)
                 .macAlgorithm(MacAlgorithm.HS256)
                 .build();
+    }
+
+    @Bean
+    public JwtEncoder jwtEncoder(SecretKey jwtSecretKey){
+        return NimbusJwtEncoder.withSecretKey(jwtSecretKey)
+                .algorithm(MacAlgorithm.HS256)
+                .build();
+    }
+
+    @Bean
+    public JwtAuthenticationConverter jwtAuthenticationConverter() {
+        JwtGrantedAuthoritiesConverter authoritiesConverter = new JwtGrantedAuthoritiesConverter();
+
+        authoritiesConverter.setAuthoritiesClaimName("roles");
+        authoritiesConverter.setAuthorityPrefix("ROLE_");
+
+        JwtAuthenticationConverter converter = new JwtAuthenticationConverter();
+        converter.setJwtGrantedAuthoritiesConverter(authoritiesConverter);
+
+        return converter;
     }
 
 }
