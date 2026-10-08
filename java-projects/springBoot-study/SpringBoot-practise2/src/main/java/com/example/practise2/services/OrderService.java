@@ -1,5 +1,6 @@
 package com.example.practise2.services;
 
+import com.example.practise2.dtos.ChangeOrderRequest;
 import com.example.practise2.dtos.CreateOrderRequest;
 import com.example.practise2.dtos.CustomerOrderResponse;
 import com.example.practise2.entities.Customer;
@@ -80,6 +81,29 @@ public class OrderService {
         response.setId(order.getId());
         response.setDescription(order.getDescription());
         response.setCustomerName(order.getCustomer().getName());
+
+        return response;
+    }
+
+    public void deleteOrder(long id){
+        CustomerOrder order = customerOrderRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("There is no order with id " + id));
+
+        customerOrderRepository.delete(order);
+    }
+
+    public CustomerOrderResponse changeOrder(long id, ChangeOrderRequest request){
+        CustomerOrder order = customerOrderRepository.findByIdWithCustomer(id)
+                .orElseThrow(() -> new NoSuchElementException("There is no order with id " + id));
+
+        order.setDescription(request.getDescription());
+
+        customerOrderRepository.save(order);
+
+        CustomerOrderResponse response = new CustomerOrderResponse();
+        response.setId(order.getId());
+        response.setCustomerName(order.getCustomer().getName());
+        response.setDescription(order.getDescription());
 
         return response;
     }

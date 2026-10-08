@@ -41,6 +41,9 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.POST, "/orders/create").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/orders/{id}").hasRole("USER")
+                                .requestMatchers(HttpMethod.DELETE, "/orders/{id}").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.PUT, "/orders/{id}").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 ).oauth2ResourceServer(oath -> oath.jwt(
                         jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter)

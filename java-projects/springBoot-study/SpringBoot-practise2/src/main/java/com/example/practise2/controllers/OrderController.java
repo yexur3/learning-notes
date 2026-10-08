@@ -1,5 +1,6 @@
 package com.example.practise2.controllers;
 
+import com.example.practise2.dtos.ChangeOrderRequest;
 import com.example.practise2.dtos.CreateOrderRequest;
 import com.example.practise2.dtos.CustomerOrderResponse;
 import com.example.practise2.services.OrderService;
@@ -12,6 +13,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.service.annotation.DeleteExchange;
 
 import java.util.List;
 
@@ -49,6 +51,20 @@ public class OrderController {
     @SecurityRequirement(name = "bearerAuth")
     public CustomerOrderResponse getOrder(@PathVariable long id){
         return orderService.getOneOrder(id);
+    }
+
+    @DeleteMapping("/{id}")
+    @SecurityRequirement(name = "bearerAuth")
+    public ResponseEntity<Void> deleteOrder(@PathVariable long id){
+        orderService.deleteOrder(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PutMapping("/{id}")
+    @SecurityRequirement(name = "bearerAuth")
+    public ResponseEntity<CustomerOrderResponse> changeOrder(@PathVariable long id, @RequestBody @Valid ChangeOrderRequest request){
+        CustomerOrderResponse response = orderService.changeOrder(id, request);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
 }
