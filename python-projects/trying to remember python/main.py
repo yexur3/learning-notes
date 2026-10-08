@@ -1,9 +1,24 @@
-print("what is your name?")
-name = input()
+from datetime import date
 
-print("year of birth?")
-year = int(input())
+def first_program():
+    print("what is your name?")
+    name = input()
 
-age = 2026 - year
+    print("year of birth?")
+    year = int(input())
 
-print("Hello:", name, "! You have around", age, "years")
+    age = date.today().year - year
+
+    print("Hello:", name, "! You have around", age, "years")
+
+
+def second_program():
+
+    for i in range(50):
+        if i % 3 == 0 and i % 5 != 0:
+            print(i)
+
+
+
+second_program()
+
