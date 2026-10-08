@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.slf4j.Logger;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class OrderService {
@@ -69,6 +70,18 @@ public class OrderService {
             response.setDescription(order.getDescription());
             return response;
         }).toList();
+    }
+
+    public CustomerOrderResponse getOneOrder(long id){
+        CustomerOrder order = customerOrderRepository.findByIdWithCustomer(id)
+                .orElseThrow(() -> new NoSuchElementException("There is no order with id " + id));
+
+        CustomerOrderResponse response = new CustomerOrderResponse();
+        response.setId(order.getId());
+        response.setDescription(order.getDescription());
+        response.setCustomerName(order.getCustomer().getName());
+
+        return response;
     }
 
 }
