@@ -20,9 +20,9 @@ def second_program():
 def third_program():
     nums = [4, 8, 15, 16, 23, 42]
 
-    newList = [num ** 2 for num in nums if num % 2 == 0]
+    new_list = [num ** 2 for num in nums if num % 2 == 0]
 
-    return newList
+    return new_list
 
 def fourth_program(text):
     dict = {}
