@@ -34,4 +34,19 @@ def what_number_is_bigger():
 
     print(g)
 
-what_number_is_bigger()
+def what_is_discount_by_price():
+    price = float(input("Enter sum: "))
+
+    if 0 < price <= 5000:
+        discount = price * 0.05
+    elif 5001 < price <= 15000:
+        discount = price * 0.12
+    elif 15001 < price <= 25000:
+        discount = price * 0.2
+    else:
+        discount = price * 0.3
+
+    print("Discount: ", discount)
+    print("Price with discount: ", price - discount)
+
+what_is_discount_by_price()
