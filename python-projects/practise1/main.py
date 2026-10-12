@@ -26,4 +26,12 @@ def if_leap_year():
     else:
         print("This year is not leap")
 
-if_leap_year()
+def what_number_is_bigger():
+    a = int(input("Enter first number: "))
+    b = int(input("Enter second number: "))
+
+    g = a if a > b else b
+
+    print(g)
+
+what_number_is_bigger()
