@@ -14,4 +14,16 @@ def from_celsius_to_fahrenheit():
 
     print(f"{celsius} degrees in Celsius equals to {f} in Fahrenheit")
 
-from_celsius_to_fahrenheit()
+def if_leap_year():
+    year = int(input("Enter a year: "))
+    if year % 100 == 0:
+        if year % 100 == 0 and year % 400 == 0:
+            print("This year not leap")
+        else:
+            print("This year is not leap")
+    elif year % 4 == 0:
+        print("This year is leap")
+    else:
+        print("This year is not leap")
+
+if_leap_year()
