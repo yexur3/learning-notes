@@ -15,4 +15,12 @@ def practice_with_arrays():
 
     print(only_unique_names)
 
-practice_with_arrays()
+def practice_with_sets():
+    a = {1, 2, 3, 4}
+    b = {3, 4, 5, 6}
+
+    print(a & b)
+    print(a | b)
+    print(a - b)
+
+practice_with_sets()
