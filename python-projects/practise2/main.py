@@ -23,4 +23,10 @@ def practice_with_sets():
     print(a | b)
     print(a - b)
 
-practice_with_sets()
+def practice_with_enumerated():
+    fruits = ["apple", "banana", "cherry"]
+    result = enumerate(fruits, 1)
+
+    print(list(result))
+
+practice_with_enumerated()
