@@ -32,4 +32,13 @@ def clean_and_filter_words(words):
     cleaned = [word.strip().lower() for word in words]
     return [word for word in cleaned if word.startswith(filter) and len(word) > 3]
 
+def clean_and_filter_words_second(words):
+    filter = ("a", "e", "i", "o", "u", 'а', 'е', 'є', 'и', 'і', 'ї', 'о', 'у', 'ю', 'я')
+
+    return [
+        w for word in words
+        if(w := word.strip().lower()).startswith(filter) and len(word) > 3
+    ]
+
 print(clean_and_filter_words(["  Apple ", "cat", " elephant  ", " Dog", "Ананас ", "їжак", "Око"]))
+print(clean_and_filter_words_second(["  Apple ", "cat", " elephant  ", " Dog", "Ананас ", "їжак", "Око"]))
