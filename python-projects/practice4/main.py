@@ -5,6 +5,11 @@ def longest_word(data):
 
     return result
 
+def sorted_words(data):
+    result = sorted(data)
+
+    return result
 
 
 print(longest_word(words))
+print(sorted_words(words))
