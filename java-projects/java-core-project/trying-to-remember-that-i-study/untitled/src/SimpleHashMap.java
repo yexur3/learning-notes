@@ -37,4 +37,24 @@ public class SimpleHashMap<K, V> {
         size++;
     }
 
+    public V get(K key) {
+        int index = Math.abs(key.hashCode()) % buckets.length;
+
+        Node<K, V> current = buckets[index];
+
+        while(current != null) {
+            if(current.key.equals(key)) {
+                return current.value;
+            }
+
+            current = current.next;
+        }
+
+        return null;
+    }
+
+    public int size() {
+        return size;
+    }
+
 }
