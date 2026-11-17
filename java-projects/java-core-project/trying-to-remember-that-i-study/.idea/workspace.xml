@@ -2,17 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3319150c-be21-4aea-8a08-e7ccd93b9e4d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/out/production/trying-to-remember-that-i-study/Main.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/trying-to-remember-that-i-study/SimpleHashMap$Node.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/trying-to-remember-that-i-study/SimpleHashMap.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/untitled/src/Main2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/untitled/src/UserKey.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/untitled/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/untitled/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/untitled/src/SimpleHashMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/untitled/src/SimpleHashMap.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
@@ -40,6 +44,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Main.executor": "Run",
+    "Application.Main2.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
@@ -53,7 +58,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Main2">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="trying-to-remember-that-i-study" />
@@ -61,8 +66,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Main2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main2" />
+      <module name="trying-to-remember-that-i-study" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Main2" />
         <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
@@ -85,6 +98,7 @@
       <workItem from="1794750333636" duration="171000" />
       <workItem from="1794832564260" duration="4442000" />
       <workItem from="1794854215931" duration="1508000" />
+      <workItem from="1794920348639" duration="3324000" />
     </task>
     <servers />
   </component>
