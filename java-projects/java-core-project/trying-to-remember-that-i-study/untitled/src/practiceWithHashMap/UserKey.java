@@ -1,3 +1,5 @@
+package practiceWithHashMap;
+
 import java.util.Objects;
 
 public class UserKey {

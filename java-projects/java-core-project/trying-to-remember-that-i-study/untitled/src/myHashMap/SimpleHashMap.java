@@ -1,3 +1,5 @@
+package myHashMap;
+
 public class SimpleHashMap<K, V> {
 
     @SuppressWarnings("unchecked")
