@@ -3,8 +3,8 @@ package practiceWithHashMap;
 import java.util.Objects;
 
 public class UserKey {
-    private final String name;
-    private final int id;
+    private String name;
+    private int id;
 
     public UserKey(String name, int id){
         this.name = name;
@@ -22,5 +22,14 @@ public class UserKey {
     @Override
     public int hashCode(){
         return Objects.hash(name, id);
+    }
+
+    public void setId(int id){
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "[" + id + ", Name: " + name + "]";
     }
 }
