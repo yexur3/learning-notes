@@ -111,6 +111,8 @@ public class CloudSimExample_own_algorithm {
 	public static ArrayList<Double> deadlines_for_IoT_type_2;
 	public static ArrayList<Double> current_dataset_deadlines = new ArrayList<>();
 
+	private static final double TICK = 0.105;
+
 	private static List<Vm> createVM(int userId, int vms) {
 
 		//Creates a container to store VMs. This list is passed to the broker later
@@ -376,13 +378,11 @@ public class CloudSimExample_own_algorithm {
 //					Nahodne preusporiadanie pola s ulohami
 //					Collections.shuffle(cloudletList);
 
-					mojAlgoritmus();
+					mojAlgoritmus();.
 
 					broker.submitVmList(vmlist);
 					broker.submitCloudletList(cloudletList);
 
-					//TODO: PRVA VERZIA
-					// mojAlgoritmus(broker);
 
 //					obmedzenie doby trvania simulácie
 //					CloudSim.terminateSimulation(100.00);
@@ -455,51 +455,8 @@ public class CloudSimExample_own_algorithm {
             }
         }
 
-//TODO: PRVA VERZIA
-//		public static void mojAlgoritmus(DatacenterBroker broker) {
-//			System.out.println("=== Moj algoritmus ===");
-//
-//			double[][] slotReady = new double[vmlist.size()][];
-//
-//			for (Vm vm : vmlist){
-//				slotReady[vm.getId()] = new double[vm.getNumberOfPes()];
-//			}
-//
-//			for (Cloudlet c : cloudletList){
-//
-//
-//				double bestTime = Double.MAX_VALUE;
-//				Vm bestVm = null;
-//				int bestSlot = 0;
-//
-//
-//				for (Vm vm : vmlist){
-//					int index = 0;
-//					for(int j = 1; j < vm.getNumberOfPes(); j++){
-//						if (slotReady[vm.getId()][j] < slotReady[vm.getId()][index]) {
-//							index = j;
-//						}
-//					}
-//
-//					double timeOfEnding = slotReady[vm.getId()][index] + c.getCloudletLength() / vm.getMips();
-//
-//					if(timeOfEnding < bestTime) {
-//						bestTime = timeOfEnding;
-//						bestVm = vm;
-//						bestSlot = index;
-//					}
-//
-//				}
-//
-//				broker.bindCloudletToVm(c.getCloudletId(), bestVm.getId());
-//				slotReady[bestVm.getId()][bestSlot] = bestTime;
-//
-//			}
-//		}
 
 	public static void mojAlgoritmus() {
-		System.out.println("=== Moj algoritmus ===");
-
 		double[][] slotReady = new double[vmlist.size()][];
 
 		List<Cloudlet> onTime = new ArrayList<>();
@@ -507,6 +464,7 @@ public class CloudSimExample_own_algorithm {
 
 		for (Vm vm : vmlist){
 			slotReady[vm.getId()] = new double[vm.getNumberOfPes()];
+			Arrays.fill(slotReady[vm.getId()], 0.1);
 		}
 
 		for (Cloudlet c : cloudletList){
@@ -523,7 +481,8 @@ public class CloudSimExample_own_algorithm {
 					}
 				}
 
-				double timeOfEnding = slotReady[vm.getId()][index] + c.getCloudletLength() / vm.getMips();
+				double duration = Math.ceil((c.getCloudletLength() / vm.getMips()) / TICK) * TICK;
+				double timeOfEnding = slotReady[vm.getId()][index] + duration;
 
 				if(timeOfEnding < bestTime) {
 					bestTime = timeOfEnding;
@@ -543,7 +502,47 @@ public class CloudSimExample_own_algorithm {
 
 		}
 
-		// TODO: ДОРОБИТИ ДРУГИЙ ПРОХОД
+		for (Cloudlet c : deferred){
+
+			double bestTime = Double.MAX_VALUE;
+			Vm bestVm = null;
+			int bestSlot = 0;
+
+			for (Vm vm : vmlist){
+				int index = 0;
+				for (int j = 1; j < vm.getNumberOfPes(); j++){
+					if (slotReady[vm.getId()][j] < slotReady[vm.getId()][index]){
+						index = j;
+					}
+				}
+
+				double duration = Math.ceil((c.getCloudletLength() / vm.getMips()) / TICK) * TICK;
+				double timeOfEnding = slotReady[vm.getId()][index] + duration;
+
+				if (timeOfEnding < bestTime) {
+					bestTime = timeOfEnding;
+					bestVm = vm;
+					bestSlot = index;
+				}
+			}
+
+			c.setVmId(bestVm.getId());
+			slotReady[bestVm.getId()][bestSlot] = bestTime;
+
+		}
+
+		for (Vm vm : vmlist) {
+			double max = 0;
+			for (int j = 0; j < slotReady[vm.getId()].length; j++) {
+				if (slotReady[vm.getId()][j] > max) {
+					max = slotReady[vm.getId()][j];
+				}
+			}
+		}
+
+		cloudletList = new ArrayList<>();
+		cloudletList.addAll(onTime);
+		cloudletList.addAll(deferred);
 
 	}
 
