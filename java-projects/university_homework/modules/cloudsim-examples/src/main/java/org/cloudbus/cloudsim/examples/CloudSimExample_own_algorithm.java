@@ -477,13 +477,25 @@ public class CloudSimExample_own_algorithm {
 		List<Cloudlet> onTime = new ArrayList<>();
 		List<Cloudlet> deferred = new ArrayList<>();
 
+		// prechadzame zoznam uloh postupne, v poradi ako su v zozname, a pre kazdu ulohu vyberame najlepsi vm
 		for (Cloudlet c : cloudletList){
 
+			// najlepsi cas dokoncenia ulohy, ktory sme zatial nasli (zaciname s najvacsim moznym cislom, aby prvy kandidat vzdy vyhral)
+			// najlepsi vm a cislo jeho jadra, potrebujeme ich na priradenie ulohy a aktualizaciu slotReady
+			// deklarujeme ich vo vnutri cyklu, aby sa pre kazdu novu ulohu hladalo odznova
 			double bestTime = Double.MAX_VALUE;
 			Vm bestVm = null;
 			int bestSlot = 0;
 
+			// prechadzame vm jeden po druhom a pre kazdy pocitame, kedy by v nom skoncila tato uloha
 			for (Vm vm : vmlist){
+
+				// hladame jadro, ktore sa uvolni najskor, a cas dokoncenia pocitame len pre neho
+				// dovod: na ktore jadro pojde uloha, rozhoduje cloudsim, a ten ju vzdy da na jadro, ktore sa uvolni ako prve
+				// my vyberame len vm, jadro vo vnutri vm nevyberame
+				// keby sme pocitali cas pre ine jadro, predpovedali by sme nieco, co sa v simulacii nestane, a model by sa rozisiel s realitou
+				// index na zaciatku ukazuje na jadro 0 a porovnavame ho s ostatnymi jadrami (od j = 1)
+				// index deklarujeme vo vnutri cyklu, aby sa pre kazdy vm zacinalo odznova
 				int index = 0;
 				for(int j = 1; j < vm.getNumberOfPes(); j++) {
 					if (slotReady[vm.getId()][j] < slotReady[vm.getId()][index]) {
@@ -491,9 +503,20 @@ public class CloudSimExample_own_algorithm {
 					}
 				}
 
+				// vypocitame, ako dlho uloha obsadi jadro
+				// cas podla vzorca (dlzka / mips) zaokruhlujeme nahor na cely pocet taktov, lebo podla mojho pozorovania cloudsim aktualizuje stav vykonavania len v taktoch a ulohu vidi ako dokoncenu az na najblizsom takte
+				// zaokruhlujeme nahor, nie na najblizsie cele cislo, pretoze inak by model niekedy predpokladal skorsie dokoncenie, ako v simulacii skutocne nastane
+				// TICK (0.105 s) je priblizna hodnota, ktoru som zistil pozorovanim vystupu simulacie
 				double duration = Math.ceil((c.getCloudletLength() / vm.getMips()) / TICK) * TICK;
+				// cas dokoncenia tejto ulohy = cas, kedy sa jadro uvolni, plus trvanie ulohy
+				// ulohy na jadre idu za sebou, takze je to zaroven cas, kedy sa jadro uvolni znova
 				double timeOfEnding = slotReady[vm.getId()][index] + duration;
 
+				// porovname cas dokoncenia s najlepsim casom, ktory sme zatial nasli
+				// ak je lepsi (mensi), zapamatame si ho ako noveho kandidata: cas, vm aj cislo jadra
+				// vsetky tri hodnoty menime spolu, lebo popisuju jeden a ten isty variant; keby sme zmenili len cas, uloha by sa priradila inemu vm, ako sme pocitali, a aktualizovalo by sa nespravne jadro
+				// konecne rozhodnutie robime az po prejdeni vsetkych vm, tu si len pamatame najlepsieho kandidata
+				// pri rovnakom case ostane prvy najdeny vm (porovnavame striktne <)
 				if(timeOfEnding < bestTime) {
 					bestTime = timeOfEnding;
 					bestVm = vm;
@@ -502,6 +525,10 @@ public class CloudSimExample_own_algorithm {
 
 			}
 
+			// tu kontrolujeme, ci ulohu stihneme dokoncit pred deadlinom, ak ju priradime k tomuto vm
+			// ak ju stihneme, ulozime si to, pridame ju do zoznamu uloh, ktore stihaju deadline, a zapiseme ju do matice na dalsie vypocty uz s ohladom na tuto ulohu
+			// ak ju nestihneme, prida sa do ineho zoznamu a neskor bude zaradena do zoznamu vsetkych uloh ako posledna, pretoze najprv sa budu vykonavat ulohy, ktore stihaju deadline
+			// kedze tieto ulohy podla modelu deadline nestihnu v kazdom pripade, vykonaju sa ako posledne, aby zbytocne neobtazovali jadra, ktore moze vyuzit ina uloha, ktora deadline este stihnut moze
 			if (bestTime <= current_dataset_deadlines.get(c.getCloudletId())){
 				c.setVmId(bestVm.getId());
 				slotReady[bestVm.getId()][bestSlot] = bestTime;
@@ -512,12 +539,17 @@ public class CloudSimExample_own_algorithm {
 
 		}
 
+		// tu znova postupne prechadzame zoznam uloh, tentokrat len ulohy, ktore podla modelu deadline nestihali
+		// priradujeme ich k vm podla toho, kam sa najlepsie hodia
+		// budu sa vykonavat ako posledne
 		for (Cloudlet c : deferred){
 
+			// vytvarame tie iste premenne ako pri beznych ulohach v prvom cykle, kde sme prechadzali cely zoznam uloh
 			double bestTime = Double.MAX_VALUE;
 			Vm bestVm = null;
 			int bestSlot = 0;
 
+			// rovnako pocitame len pre jadro, ktore sa uvolni najskor, v tomto vm pre tuto ulohu
 			for (Vm vm : vmlist){
 				int index = 0;
 				for (int j = 1; j < vm.getNumberOfPes(); j++){
@@ -526,9 +558,11 @@ public class CloudSimExample_own_algorithm {
 					}
 				}
 
+				// robime tu rovnaky vypocet
 				double duration = Math.ceil((c.getCloudletLength() / vm.getMips()) / TICK) * TICK;
 				double timeOfEnding = slotReady[vm.getId()][index] + duration;
 
+				// a rovnako kontrolujeme cas a zapamatame si vsetky udaje najlepsieho vm a najlepsieho jadra pre tuto ulohu
 				if (timeOfEnding < bestTime) {
 					bestTime = timeOfEnding;
 					bestVm = vm;
@@ -536,11 +570,14 @@ public class CloudSimExample_own_algorithm {
 				}
 			}
 
+			// po prejdeni celeho zoznamu vm priradime ulohu k vm, ktory bol pre nu najlepsi
+			// a zapiseme to do matice pre spravne vypocty v buducnosti
 			c.setVmId(bestVm.getId());
 			slotReady[bestVm.getId()][bestSlot] = bestTime;
 
 		}
 
+		// tu vytvarame zoznam vsetkych uloh: najprv do neho pridame ulohy, ktore stihaju deadline, tie sa maju vykonat prve, a po nich budu nasledovat ulohy, ktore deadline nestihaju
 		cloudletList = new ArrayList<>();
 		cloudletList.addAll(onTime);
 		cloudletList.addAll(deferred);
