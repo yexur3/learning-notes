@@ -378,7 +378,7 @@ public class CloudSimExample_own_algorithm {
 //					Nahodne preusporiadanie pola s ulohami
 //					Collections.shuffle(cloudletList);
 
-					mojAlgoritmus();.
+					mojAlgoritmus();
 
 					broker.submitVmList(vmlist);
 					broker.submitCloudletList(cloudletList);
@@ -457,15 +457,25 @@ public class CloudSimExample_own_algorithm {
 
 
 	public static void mojAlgoritmus() {
+
+		// vytvarame maticu: riadok je jeden virtualny stroj (vm), stlpec je jadro tohto vm
+		// hodnota v matici je cas, kedy sa dane jadro uvolni
+		// vdaka tomu sledujeme, ktore jadra su obsadene a dokedy
+		// jadra pre jednotlive riadky vytvarame v cykle nizsie
 		double[][] slotReady = new double[vmlist.size()][];
 
-		List<Cloudlet> onTime = new ArrayList<>();
-		List<Cloudlet> deferred = new ArrayList<>();
-
+		// pre kazdy vm vytvarame stlpce (jadra) a hned kazde jadro naplname hodnotou 0.1
+		// 0.1 nie je nahodne, vo vystupe simulacie je vidno, ze prva uloha na kazdom jadre zacina o 0.1 s, nie o 0 s
 		for (Vm vm : vmlist){
 			slotReady[vm.getId()] = new double[vm.getNumberOfPes()];
 			Arrays.fill(slotReady[vm.getId()], 0.1);
 		}
+
+		// vytvarame dva zoznamy uloh
+		// onTime: ulohy, ktore sa podla nasho modelu stihnu dokoncit pred deadlinom
+		// deferred: ulohy, ktore sa podla modelu nestihnu; nezahadzujeme ich, ale zaradime ich na koniec fronty
+		List<Cloudlet> onTime = new ArrayList<>();
+		List<Cloudlet> deferred = new ArrayList<>();
 
 		for (Cloudlet c : cloudletList){
 
@@ -529,15 +539,6 @@ public class CloudSimExample_own_algorithm {
 			c.setVmId(bestVm.getId());
 			slotReady[bestVm.getId()][bestSlot] = bestTime;
 
-		}
-
-		for (Vm vm : vmlist) {
-			double max = 0;
-			for (int j = 0; j < slotReady[vm.getId()].length; j++) {
-				if (slotReady[vm.getId()][j] > max) {
-					max = slotReady[vm.getId()][j];
-				}
-			}
 		}
 
 		cloudletList = new ArrayList<>();

@@ -2,13 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3319150c-be21-4aea-8a08-e7ccd93b9e4d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/untitled/src/practiceWithHashMapTreefy/BadKeyA.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/untitled/src/practiceWithHashMapTreefy/BadKeyB.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/untitled/src/practiceWithHashMapTreefy/Main6.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/untitled/src/practiceWithLists/Main7.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/untitled/src/practiceWithLists/Main8.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../university_homework/Results_of_simulations.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../../university_homework/Results_of_simulations.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../university_homework/modules/cloudsim-examples/src/main/java/org/cloudbus/cloudsim/examples/CloudSimExample_own_algorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../university_homework/modules/cloudsim-examples/src/main/java/org/cloudbus/cloudsim/examples/CloudSimExample_own_algorithm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../university_homework/modules/cloudsim-examples/src/main/java/org/cloudbus/cloudsim/examples/SettingOfSimulation2024.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../university_homework/modules/cloudsim-examples/src/main/java/org/cloudbus/cloudsim/examples/SettingOfSimulation2024.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../university_homework/modules/cloudsim-examples/target/classes/org/cloudbus/cloudsim/examples/CloudSimExample_own_algorithm.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../university_homework/modules/cloudsim-examples/target/classes/org/cloudbus/cloudsim/examples/CloudSimExample_own_algorithm.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../university_homework/modules/cloudsim-examples/target/classes/org/cloudbus/cloudsim/examples/SettingOfSimulation2024.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../university_homework/modules/cloudsim-examples/target/classes/org/cloudbus/cloudsim/examples/SettingOfSimulation2024.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,48 +46,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Main2.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Main3.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Main4.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Main5.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Main6.executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/ilias/Documents/learning_programing/learning-notes/java-projects/java-core-project/trying-to-remember-that-i-study&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propCompiler&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "Application.Main2.executor": "Run",
+    "Application.Main3.executor": "Run",
+    "Application.Main4.executor": "Run",
+    "Application.Main5.executor": "Run",
+    "Application.Main6.executor": "Run",
+    "Application.Main7.executor": "Run",
+    "Application.Main8.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/ilias/Documents/learning_programing/learning-notes/java-projects/java-core-project/trying-to-remember-that-i-study",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "configurable.group.build",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RunManager" selected="Application.Main6">
-    <configuration name="Main2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="practiceWithHashMap.Main2" />
-      <module name="trying-to-remember-that-i-study" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Main3" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="practiceWithHashMap.Main3" />
-      <module name="trying-to-remember-that-i-study" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="practiceWithHashMap.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+}]]></component>
+  <component name="RunManager" selected="Application.Main8">
     <configuration name="Main4" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="practiceWithHashMap.Main4" />
       <module name="trying-to-remember-that-i-study" />
@@ -126,13 +109,39 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Main7" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="practiceWithLists.Main7" />
+      <module name="trying-to-remember-that-i-study" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="practiceWithLists.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main8" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="practiceWithLists.Main8" />
+      <module name="trying-to-remember-that-i-study" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="practiceWithLists.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Main8" />
+        <item itemvalue="Application.Main7" />
         <item itemvalue="Application.Main6" />
         <item itemvalue="Application.Main5" />
         <item itemvalue="Application.Main4" />
-        <item itemvalue="Application.Main3" />
-        <item itemvalue="Application.Main2" />
       </list>
     </recent_temporary>
   </component>
@@ -161,6 +170,9 @@
       <workItem from="1795274791179" duration="3522000" />
       <workItem from="1795356149342" duration="8000" />
       <workItem from="1795358669982" duration="8000" />
+      <workItem from="1795375503211" duration="94000" />
+      <workItem from="1795375651316" duration="189000" />
+      <workItem from="1795416895688" duration="4816000" />
     </task>
     <servers />
   </component>

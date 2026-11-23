@@ -7,7 +7,7 @@ import java.util.List;
 
 public class SettingOfSimulation2024 {
 
-    public static int NUM_OF_CLOUDLETS = 1000;     // počet úloh (cloudletov);
+    public static int NUM_OF_CLOUDLETS = 1500;     // počet úloh (cloudletov);
     public static int NUM_OF_VMS = 20;           // počet VM (viruálnych strojov);
 //    public static final String TYPE_OF_DATASET = "Dataset_type_5.txt";   // subor z ktoreho nacitavame dlzky uloh
 //    public static String DEADLINE_FOR_DATASET = "Deadline_for_dataset_5.txt"; //subor z ktoreho nacitavame deadline uloh
