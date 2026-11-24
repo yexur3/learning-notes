@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3319150c-be21-4aea-8a08-e7ccd93b9e4d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/untitled/src/practiceWithStack/Main9.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/untitled/src/practiceWithSets/Main10.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -43,6 +43,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Main.executor": "Run",
+    "Application.Main10.executor": "Run",
     "Application.Main2.executor": "Run",
     "Application.Main3.executor": "Run",
     "Application.Main4.executor": "Run",
@@ -64,13 +65,13 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.Main9">
-    <configuration name="Main5" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="practiceWithHashMapResize.Main5" />
+  <component name="RunManager" selected="Application.Main10">
+    <configuration name="Main10" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="practiceWithSets.Main10" />
       <module name="trying-to-remember-that-i-study" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="practiceWithHashMapResize.*" />
+          <option name="PATTERN" value="practiceWithSets.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -132,11 +133,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Main10" />
         <item itemvalue="Application.Main9" />
         <item itemvalue="Application.Main8" />
         <item itemvalue="Application.Main7" />
         <item itemvalue="Application.Main6" />
-        <item itemvalue="Application.Main5" />
       </list>
     </recent_temporary>
   </component>
@@ -170,7 +171,8 @@
       <workItem from="1795416895688" duration="4816000" />
       <workItem from="1795439524678" duration="40000" />
       <workItem from="1795541121136" duration="421000" />
-      <workItem from="1795542413355" duration="295000" />
+      <workItem from="1795542413355" duration="942000" />
+      <workItem from="1795559639768" duration="1415000" />
     </task>
     <servers />
   </component>
